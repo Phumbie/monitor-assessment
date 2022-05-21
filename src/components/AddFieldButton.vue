@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button @click="$emit('click')">
     <img src="@/assets/plus.svg" alt="" />
     <p>Add another field</p>
   </button>

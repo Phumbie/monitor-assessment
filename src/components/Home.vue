@@ -8,13 +8,18 @@
       <img src="@/assets/cancel.png" alt="cancel" />
     </div>
     <div class="body">
-      <div class="navbar">
-        <p>UNATRRIBUTED VALUE REMAINING</p>
-        <Input background="white" />
-      </div>
+      <Navbar />
       <div class="field-body">
-        <Field v-for="i in 6" :key="i" :position="i" />
-        <AddFieldButton />
+        <Field
+          v-for="(i, index) in positions"
+          :key="'i' + index"
+          :position="index + 1"
+          v-model="i.position"
+        />
+        <AddFieldButton @click="handleNewField" />
+      </div>
+      <div class="apply-button">
+        <ApplyButton />
       </div>
     </div>
   </div>
@@ -23,11 +28,31 @@
   import Input from "./Input.vue";
   import Field from "./Field.vue";
   import AddFieldButton from "./AddFieldButton.vue";
+  import ApplyButton from "./ApplyButton.vue";
+  import Navbar from "./Navbar.vue";
   export default {
     components: {
       Input,
       Field,
       AddFieldButton,
+      ApplyButton,
+      Navbar,
+    },
+    data: () => ({
+      positions: [
+        { position: "" },
+        { position: "" },
+        { position: "" },
+        { position: "" },
+        { position: "" },
+        { position: "" },
+      ],
+    }),
+    methods: {
+      handleNewField() {
+        console.log("hi");
+        console.log(this.positions);
+      },
     },
   };
 </script>
@@ -71,5 +96,12 @@
   }
   .field-body {
     padding: 0.8rem 0.5rem;
+    min-height: 35rem;
+    max-height: 45rem;
+    overflow: auto;
+  }
+  .apply-button {
+    text-align: center;
+    padding: 0.5rem;
   }
 </style>
