@@ -1,11 +1,7 @@
 <template>
   <div class="field-container">
     <p>POSITION {{ position }}</p>
-    <Input
-      :value="value"
-      @input="$emit('input', $event)"
-     
-    />
+    <Input :value="value" @input="$emit('input', $event)" />
   </div>
 </template>
 <script>
@@ -25,7 +21,6 @@
         default: "",
       },
     },
-
   };
 </script>
 <style scoped>
