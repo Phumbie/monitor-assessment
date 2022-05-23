@@ -125,11 +125,6 @@
         }
       },
     },
-    watch: {
-      checkAllValuesAreLess(value) {
-        console.log(value);
-      },
-    },
     methods: {
       handleNewField() {
         let lastIndex = this.positions.length - 1;
