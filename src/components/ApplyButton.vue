@@ -6,7 +6,7 @@
     props: {
       disabled: {
         type: Boolean,
-        default: false,
+        default: true,
         required: false,
       },
     },
@@ -23,6 +23,7 @@
     margin: auto;
     border: none;
     text-align: center;
+    cursor: pointer;
   }
 
   button:disabled {

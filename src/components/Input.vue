@@ -50,11 +50,6 @@
         default: "%",
       },
     },
-    watch: {
-      value(value) {
-        console.log(value);
-      },
-    },
     computed: {
       formatValue: {
         get() {
@@ -62,10 +57,14 @@
             return this.value;
           } else {
             let newValue = parseFloat(this.value);
-            if (this.value > -10 && this.value < 10) {
-              return newValue.toFixed(2);
+            if (Number.isInteger(newValue)) {
+              return newValue;
             } else {
-              return newValue.toFixed(1);
+              if (this.value > -10 && this.value < 10) {
+                return newValue.toFixed(2);
+              } else {
+                return newValue.toFixed(1);
+              }
             }
           }
         },
@@ -76,36 +75,6 @@
           }
           this.$emit("input", newValue.toString());
         },
-      },
-    },
-    methods: {
-      isNumber(evt) {
-        evt = evt ? evt : window.event;
-        let charCode = evt.which ? evt.which : evt.keyCode;
-        if (
-          charCode != 46 &&
-          charCode > 31 &&
-          (charCode < 48 || charCode > 57)
-        ) {
-          evt.preventDefault();
-        } else {
-          return true;
-        }
-      },
-      showFormattedValue() {
-        this.$emit("input", this.formattedValue);
-        this.newValue = this.unformattedValue;
-      },
-    },
-    filters: {
-      formatNumber: function (value) {
-        // if (value.includes(".")) {
-        if (value > -10 && value < 10) {
-          value.toFixed(2);
-        } else {
-          value.toFixed(1);
-        }
-        // }
       },
     },
   };

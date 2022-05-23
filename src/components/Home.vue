@@ -46,7 +46,7 @@
         <AddFieldButton @click="handleNewField" />
       </div>
       <div class="apply-button">
-        <ApplyButton />
+        <ApplyButton :disabled="handleDisableApply" />
       </div>
     </div>
   </div>
@@ -75,6 +75,7 @@
         { position: "" },
       ],
       remainingPositions: "",
+      lessThanExist: false,
     }),
     computed: {
       totalPositions() {
@@ -94,20 +95,39 @@
           return true;
         });
         return arrayIndex;
-        // for (let i = 0; i < this.positions.length; i++) {
-        //   console.log(i, this.positions.length - 1);
-        //   if (i == this.positions.length - 1) {
-        //     console.log("e don pass");
-        //     arrayIndex = this.positions.length - 1;
-        //     break;
-        //   } else {
-        //     if (this.positions[i].position.length > 0) {
-        //       arrayIndex = i;
-        //     }
-        //   }
-        // }
-        // console.log(arrayIndex);
-        // return arrayIndex;
+      },
+      checkAllValuesAreLess() {
+        let valid;
+        this.positions.every((item, index) => {
+          let currentValue = item.position === "" ? 0 : Number(item.position);
+          if (index !== 0) {
+            if (
+              currentValue > Number(Number(this.positions[index - 1].position))
+            ) {
+              valid = false;
+              return false;
+            }
+          }
+          valid = true;
+          return true;
+        });
+        return valid;
+      },
+      handleDisableApply() {
+        if (
+          this.positions.length > 5 &&
+          this.totalPositions == 100 &&
+          this.checkAllValuesAreLess
+        ) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+    },
+    watch: {
+      checkAllValuesAreLess(value) {
+        console.log(value);
       },
     },
     methods: {

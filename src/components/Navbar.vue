@@ -4,7 +4,7 @@
 
     <div class="remainder">
       <p class="remainder-value" @click="$emit('handleRemaining')">
-        {{ remainingPositions || 100 }}
+        {{ formatRemainder || 100 }}
       </p>
       <p class="symbol">%</p>
     </div>
@@ -19,6 +19,22 @@
     props: {
       remainingPositions: {
         default: "",
+      },
+    },
+    computed: {
+      formatRemainder() {
+        if (this.remainingPositions) {
+          let newValue = parseFloat(this.remainingPositions);
+          if (Number.isInteger(this.remainingPositions)) {
+            return newValue;
+          } else {
+            if (this.remainingPositions > -10 && this.remainingPositions < 10) {
+              return this.remainingPositions.toFixed(2);
+            } else {
+              return this.remainingPositions.toFixed(1);
+            }
+          }
+        }
       },
     },
   };
